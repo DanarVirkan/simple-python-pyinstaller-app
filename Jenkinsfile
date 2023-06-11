@@ -16,7 +16,8 @@ node {
     }
     stage('Deliver') { 
         docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "source:/src/"', '"pyinstaller -F sources/add2vals.py"') {
-            archiveArtifacts "17/sources/dist/add2vals"
+            sh 'ls'
+            archiveArtifacts "sources/dist/add2vals"
         }
     }
 }
