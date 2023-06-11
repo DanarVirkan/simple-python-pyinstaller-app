@@ -15,14 +15,10 @@ node {
         }
     }
     stage('Deliver') { 
-        docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "source:/src/"', '"pyinstaller -F sources/add2vals.py"') {
-            sh 'ls'
-            sh 'ls sources'
-            sh 'ls 16'
-            sh 'ls 17'
-            sh 'ls 29'
-            sh 'ls 30'
-            archiveArtifacts "sources/dist/add2vals"
+        dir(path: env.BUILD_ID) {
+            docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "source:/src/"', '"pyinstaller -F sources/add2vals.py"') {
+                archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
+            }
         }
     }
 }
