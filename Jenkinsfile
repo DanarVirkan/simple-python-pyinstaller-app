@@ -7,7 +7,7 @@ node {
         }
     }
     stage('Test') {
-        docker.image('qnib/pytest') {
+        docker.image('qnib/pytest').inside {
             try {
                 sh 'py.test --junit-xml test-reports/results.xml sources/test_calc.py'
             } finally {
