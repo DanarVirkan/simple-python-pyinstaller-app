@@ -16,11 +16,9 @@ node {
         }
     }
     stage('Deliver') { 
-        dir(path: env.BUILD_ID) { 
-            docker.image('cdrx/pyinstaller-linux:python2').inside {
-                sh 'pyinstaller -F sources/add2vals.py'
-                archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals" 
-            }
+        docker.image('cdrx/pyinstaller-linux:python2').inside("-v $(pwd):/src/") {
+            sh 'pyinstaller -F sources/add2vals.py'
+            archiveArtifacts 'dist/add2vals'
         }
     }
 }
