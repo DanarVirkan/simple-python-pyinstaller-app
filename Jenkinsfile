@@ -18,6 +18,8 @@ node {
         docker.image('cdrx/pyinstaller-linux').inside {
             try {
                 sh 'pyinstaller --onefile sources/add2vals.py'
+            } catch {
+                
             }
             archiveArtifacts 'dist/add2vals'
         }
