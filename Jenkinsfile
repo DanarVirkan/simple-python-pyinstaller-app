@@ -3,7 +3,6 @@ node {
     stage('Build') {
         docker.image('python:2-alpine').inside {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-            stash(name: 'compiled-results', includes: 'sources/*.py*')
         }
     }
     stage('Test') {
@@ -17,7 +16,7 @@ node {
     }
     stage('Deliver') { 
         docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "source:/src/"', '"pyinstaller -F sources/add2vals.py"') {
-            archiveArtifacts '${env.BUILD_ID}/sources/dist/add2vals'
+            archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
         }
     }
 }
