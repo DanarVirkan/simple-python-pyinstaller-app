@@ -20,6 +20,7 @@ node {
             // dir()
             sh 'pwd'
             sh 'ls'
+            sh 'ls sources'
             archiveArtifacts "dist/add2vals"
         }
     }
