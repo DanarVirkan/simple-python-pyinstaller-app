@@ -1,5 +1,6 @@
 node {
     checkout scm
+    sh 'pwd'
     stage('Build') {
         docker.image('python:2-alpine').inside {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
@@ -16,6 +17,7 @@ node {
     }
     stage('Deliver') { 
         docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "source:/src/"', '"pyinstaller -F sources/add2vals.py"') {
+            // dir()
             archiveArtifacts "sources/dist/add2vals"
         }
     }
