@@ -25,7 +25,7 @@ node {
         input(message: "Lanjutkan ke tahap Deploy?")
     }
     stage('Deploy') {
-        docker.image('python').withRun('-v "$(pwd):/src/"') {
+        docker.image('python').withRun('-v "$(pwd):/src/"', 'python dist/add2vals') {
             sh 'ls'
             sh 'ls dist'
             sh 'ls build'
