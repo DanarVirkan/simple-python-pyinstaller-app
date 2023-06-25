@@ -15,24 +15,15 @@ node {
             }
         }
     }
-    stage('Deliver') { 
+    stage('Manual Approval') {
         docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "$(pwd):/src/"', '"pyinstaller -F sources/add2vals.py"') {
             archiveArtifacts "dist/add2vals"
         }
-    }
-    stage('Manual Approval') {
-        echo 'Mock Continous Delivery'
+
         input(message: "Lanjutkan ke tahap Deploy?")
     }
     stage('Deploy') {
-        sh 'ls'
-        sh 'ls dist'
         sh 'dist/add2vals 2 4'
-        // docker.image('python').withRun('-v "$(pwd):/src/"', 'dist/add2vals 2 4') {
-        //     sh 'ls dist'
-        //     sh 'ls build'
-        //     sh 'ls sources'
-        // }
         sleep(time: 1, unit: 'MINUTES')
     }
 }
