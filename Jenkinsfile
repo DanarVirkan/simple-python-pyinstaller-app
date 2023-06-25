@@ -17,12 +17,17 @@ node {
     }
     stage('Deliver') { 
         docker.image('cdrx/pyinstaller-linux:python2').withRun('-v "$(pwd):/src/"', '"pyinstaller -F sources/add2vals.py"') {
-            // dir()
-            sh 'pwd'
-            sh 'ls'
-            sh 'ls dist'
-            sh 'ls sources'
             archiveArtifacts "dist/add2vals"
         }
+    }
+    stage('Manual Approval') {
+        echo 'Mock Continous Delivery'
+        input(message: "Lanjutkan ke tahap Deploy?")
+    }
+    stage('Deploy') {
+        docker.image('python').withRun('-v "$(pwd):/src/"', '"python ./dist/add2vals"') {
+            sh 'ls'
+        }
+        sleep(time: 1, unit: 'MINUTES')
     }
 }
