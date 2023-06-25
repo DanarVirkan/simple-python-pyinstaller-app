@@ -25,8 +25,7 @@ node {
         input(message: "Lanjutkan ke tahap Deploy?")
     }
     stage('Deploy') {
-        sh 'ls'
-        docker.image('python').withRun('-v "$(pwd):/src/"', '"python ./dist/add2vals"') {
+        docker.image('python').withRun('-v "$(pwd):/src/"') {
             sh 'ls'
         }
         sleep(time: 1, unit: 'MINUTES')
