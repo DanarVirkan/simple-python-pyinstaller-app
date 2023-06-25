@@ -27,6 +27,9 @@ node {
     stage('Deploy') {
         docker.image('python').withRun('-v "$(pwd):/src/"') {
             sh 'ls'
+            sh 'ls dist'
+            sh 'ls build'
+            sh 'ls sources'
         }
         sleep(time: 1, unit: 'MINUTES')
     }
