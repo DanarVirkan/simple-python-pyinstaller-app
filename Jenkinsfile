@@ -25,12 +25,14 @@ node {
         input(message: "Lanjutkan ke tahap Deploy?")
     }
     stage('Deploy') {
-        docker.image('python').withRun('-v "$(pwd):/src/"', 'dist/add2vals 2 4') {
-            sh 'ls'
-            sh 'ls dist'
-            sh 'ls build'
-            sh 'ls sources'
-        }
+        sh 'ls'
+        sh 'ls dist'
+        sh 'dist/add2vals 2 4'
+        // docker.image('python').withRun('-v "$(pwd):/src/"', 'dist/add2vals 2 4') {
+        //     sh 'ls dist'
+        //     sh 'ls build'
+        //     sh 'ls sources'
+        // }
         sleep(time: 1, unit: 'MINUTES')
     }
 }
